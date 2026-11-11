@@ -5,13 +5,13 @@ export function useFetch(url) {
   const error = ref(null);
   const loading = ref(true);
 
-  const fetchData = async () => {
+  const fetchData = async (requestUrl = url) => {
     console.log("hola")
     loading.value = true;
     error.value = null;
 
     try {
-      const res = await fetch(url);
+      const res = await fetch(requestUrl);
 
       if (!res.ok) {
         throw new Error('Error en la peticio: ' + res.status);

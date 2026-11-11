@@ -1,30 +1,36 @@
 <template>
+  <NavigationBar />
+  <h1>Desserts</h1>
+  <SearchBar @search="searchMeals" />
   <div>
     <!--button @click="fetchData" class="refresh">Torna a carregar</button-->
-    <button @click="refetch" class="refresh">Refresh</button>
+    <button @click="refetch()" class="refresh">Refresh</button>
 
     <div v-if="loading" class="center">Loading...</div>
     <div v-else-if="error" class="center error">Error: {{ error }}</div>
 
     <div v-else class="grid">
-      <DiscCard
-        v-for="d in data.discs"
-        :key="d.id"
-        :title="d.title"
-        :price="d.price"
-        :releaseDate="d.releaseDate"
-        :description="d.description"
-        :img="d.img"
+      <MealCard
+        v-for="m in data.meals"
+        :key="m.idMeal"
+        :meal="m"
       />
     </div>
   </div>
 </template>
 
 <script setup>
-import ProductCard from './ProductCard.vue';
+import NavigationBar from '@/components/NavigationBar.vue';
+import MealCard from '../components/MealCard.vue';
 import { useFetch } from '../composables/useFetch.js';
-const { data, error, loading, refetch } = useFetch('https://dummyjson.com/products');
-//const { data, error, loading, fetchData } = useFetch('https://dummyjson.com/products');
+import SearchBar from '@/components/SearchBar.vue';
+const { data, error, loading, refetch } = useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert');
+//const { data, error, loading, fetchData } = useFetch('www.themealdb.com/api/json/v1/1/filter.php?c=Dessert');
+
+function searchMeals(input) {
+  const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(input)}`;
+  refetch(url);
+}
 </script>
 
 <style scoped>
