@@ -1,9 +1,9 @@
 <template>
   <div class="mealCard">
-    <img :src="meal.strMealThumb" :alt="meal.strMeal" class="meal.strMealThumb" />
+    <img :src="meal.strMealThumb" :alt="meal.strMeal" class="img" />
 
-    <h3>{{ meal.strMeal }}</h3>
-    <RouterLink :to="{name:'Meal', params:{idMeal:meal.idMeal}}">View details</RouterLink>
+    <h3 class="name">{{ meal.strMeal }}</h3>
+    <RouterLink class="details-button" :to="{name:'Meal', params:{idMeal:meal.idMeal}}">View details</RouterLink>
   </div>
 </template>
 
@@ -21,7 +21,7 @@ defineProps({
 </script>
 
 <style scoped>
-.card {
+.mealCard {
   background: #fff;
   padding: 1rem;
   border-radius: 14px;
@@ -29,30 +29,30 @@ defineProps({
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin: 10px;
 }
 
-.thumb {
+.img {
   width: 100%;
   border-radius: 10px;
-}
-
-.price {
-  font-weight: bold;
-  color: #2c7;
-}
-
-.description {
-  font-size: 0.9rem;
-  opacity: 0.8;
 }
 
 .details-button {
   display: inline-block;
   width: fit-content;
   padding: 0.5rem 1rem;
-  color: white;
-  background: #3478f6;
-  border-radius: 6px;
   text-decoration: none;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+  margin-bottom: 1rem;
+  background: #3478f6;
+  color: white;
+  border-radius: 8px;
 }
+
+.details-button:hover {
+    color: #fff;
+    background-color: #224fa3;
+}
+
 </style>

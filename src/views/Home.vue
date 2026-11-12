@@ -27,9 +27,12 @@ import SearchBar from '@/components/SearchBar.vue';
 const { data, error, loading, refetch } = useFetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert');
 //const { data, error, loading, fetchData } = useFetch('www.themealdb.com/api/json/v1/1/filter.php?c=Dessert');
 
-function searchMeals(input) {
-  const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(input)}`;
-  refetch(url);
+async function searchMeals(input) {
+  const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=' + encodeURIComponent(input);
+  await refetch(url);
+  if (data.value.meals) {
+    data.value.meals = data.value.meals.filter((meal) => meal.strCategory === 'Dessert');
+  }
 }
 </script>
 
@@ -46,6 +49,17 @@ function searchMeals(input) {
   background: #3478f6;
   color: white;
   border-radius: 8px;
+  margin-left: 10px;
+  text-decoration: none;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+  border: 1px solid;
+  cursor: pointer;
+}
+
+.refresh:hover {
+    color: #fff;
+    background-color: #224fa3;
 }
 
 .center {
@@ -55,5 +69,10 @@ function searchMeals(input) {
 
 .error {
   color: red;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
 }
 </style>
